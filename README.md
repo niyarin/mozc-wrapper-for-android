@@ -1,0 +1,2 @@
+# Mozc wrapper for Android
+
