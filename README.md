@@ -1,6 +1,9 @@
 # Mozc wrapper for Android
 `mozc-wrapper-for-android` is a thin Kotlin wrapper around `libmozc.so`.
 
+This wrapper supports Mozc 3.33.6133.
+With the AAR file distributed by this project and the dictionary data file, you can easily use Mozc on Android.
+
 ## Examples
 
 ```kt
