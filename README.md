@@ -6,6 +6,8 @@ With the AAR file distributed by this project and the dictionary data file, you 
 
 ## Examples
 
+This wrapper is used by the keyboard app [SimpleMozcKeyboard](https://github.com/niyarin/rubbish-bin/tree/main/android/SimpleMozcKeyboard).
+
 ```kt
 val createResult = MozcFactory.createFromContextWithDataFile(
       context = context,
