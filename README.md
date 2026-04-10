@@ -1,4 +1,31 @@
 # Mozc wrapper for Android
+`mozc-wrapper-for-android` is a thin Kotlin wrapper around `libmozc.so`.
+
+## Examples
+
+```kt
+val createResult = MozcFactory.createFromContextWithDataFile(
+      context = context,
+      dataFilePath = "/path/to/mozc.data",
+      config = MozcConfig.DEFAULT
+  )
+
+  val converter = when (createResult) {
+      is MozcResult.Success -> createResult.data
+      is MozcResult.Error -> error(createResult.message)
+  }
+
+  when (val result = converter.convert("かんじ")) {
+      is MozcResult.Success -> {
+          val conversion = result.data
+          println(conversion.preedit)
+          println(conversion.candidates)
+      }
+      is MozcResult.Error -> {
+          println("Conversion failed: ${result.message}")
+      }
+  }
+```
 
 ## License
 Except for the files listed below, all files under app/ are code or generated artifacts from [google/mozc](https://github.com/google/mozc), licensed under [the BSD 3-Clause License](https://github.com/niyarin/mozc-wrapper-for-android/blob/main/LICENSE.google-mozc).
