@@ -3,6 +3,14 @@
 ## License
 Except for the files listed below, all files under app/ are code or generated artifacts from [google/mozc](https://github.com/google/mozc), licensed under [the BSD 3-Clause License](https://github.com/niyarin/mozc-wrapper-for-android/blob/main/LICENSE.google-mozc).
 
+These files are original works by Niyarin and are licensed under the MIT License.
+- app/src/main/java/com/niyarin/mozc/converter/MozcConverter.kt
+- app/src/main/java/com/niyarin/mozc/core/MozcCore.kt
+- app/src/main/java/com/niyarin/mozc/factory/MozcFactory.kt
+- app/src/main/java/com/niyarin/mozc/models/MozcModels.kt
+- app/src/main/java/com/niyarin/mozc/session/MozcSession.kt
+- app/src/main/java/org/mozc/android/inputmethod/japanese/nativecallback/HttpClient.java
+
 
 ## File sources
 - `app/src/main/java/org/mozc/android/inputmethod/japanese/protobuf/*.java`
