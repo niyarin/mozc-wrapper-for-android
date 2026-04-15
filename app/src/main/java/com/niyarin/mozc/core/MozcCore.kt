@@ -91,12 +91,12 @@ class MozcCoreImpl private constructor(
                     }
                     MozcResult.Success(instance!!)
                 }
-            } catch (e: Exception) {
+            } catch (e: MozcException) {
                 logError("Failed to create MozcCore", e)
                 MozcResult.Error(
                     "Failed to create MozcCore: ${e.message}",
                     e,
-                    MozcErrorCode.INITIALIZATION_FAILED
+                    e.errorCode
                 )
             }
         }
@@ -148,7 +148,7 @@ class MozcCoreImpl private constructor(
             if (enableDebugLog) {
                 logDebug("Mozc library loaded successfully")
             }
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             logError("Failed to load Mozc library", e)
             throw MozcException(
                 "Failed to load Mozc library: ${e.message}",
@@ -177,7 +177,7 @@ class MozcCoreImpl private constructor(
                 logDebug("Received response: ${response?.size ?: 0} bytes")
             }
             response ?: byteArrayOf()
-        } catch (e: Exception) {
+        } catch (e: RuntimeException) {
             logError("Command execution failed", e)
             throw MozcException(
                 "Command execution failed: ${e.message}",
