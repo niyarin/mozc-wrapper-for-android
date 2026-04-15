@@ -352,7 +352,7 @@ class MozcSessionImpl(
             output.result.value
         } else ""
 
-        logDebug("convertToMozcResponse: preedit='$preedit', result='$result', candidates=${candidates.size}")
+        logDebug("convertToMozcResponse: candidates=${candidates.size}")
 
         return MozcResponse(
             sessionId = sessionId,
