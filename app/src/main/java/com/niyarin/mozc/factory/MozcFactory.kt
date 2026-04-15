@@ -48,9 +48,10 @@ object MozcFactory {
 
             // Layer 2: Session
             val session = MozcSessionImpl(core, config)
+            val suggestionSession = MozcSessionImpl(core, config)
 
             // Layer 3: Converter
-            val converter = MozcConverterImpl(session)
+            val converter = MozcConverterImpl(session, suggestionSession)
 
             MozcResult.Success(converter)
         } catch (e: Exception) {
@@ -155,7 +156,8 @@ object MozcFactory {
     ): MozcResult<MozcConverter> {
         return try {
             val session = MozcSessionImpl(core, config)
-            val converter = MozcConverterImpl(session)
+            val suggestionSession = MozcSessionImpl(core, config)
+            val converter = MozcConverterImpl(session, suggestionSession)
             MozcResult.Success(converter)
         } catch (e: Exception) {
             MozcResult.Error(
@@ -172,10 +174,11 @@ object MozcFactory {
      * @return MozcConverterインスタンス
      */
     fun createWithCustomSession(
-        session: MozcSession
+        session: MozcSession,
+        suggestionSession: MozcSession = session
     ): MozcResult<MozcConverter> {
         return try {
-            val converter = MozcConverterImpl(session)
+            val converter = MozcConverterImpl(session, suggestionSession)
             MozcResult.Success(converter)
         } catch (e: Exception) {
             MozcResult.Error(

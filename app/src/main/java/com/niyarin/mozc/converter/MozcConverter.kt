@@ -61,7 +61,8 @@ interface MozcConverter {
  * MozcConverterの実装
  */
 class MozcConverterImpl(
-    private val session: MozcSession
+    private val session: MozcSession,
+    private val suggestionSession: MozcSession
 ) : MozcConverter {
 
     /**
@@ -117,16 +118,15 @@ class MozcConverterImpl(
      * メインのセッション状態に影響を与えないよう、reset() で前の状態を初期化
      */
     override fun getSuggestions(hiragana: String): MozcResult<List<Candidate>> {
-        // セッションをリセットして前の入力を削除
-        session.reset()
-        
+        suggestionSession.reset()
+
         var lastResponse: MozcResponse? = null
 
         for (char in hiragana) {
-            when (val result = session.sendKey(char.code)) {
+            when (val result = suggestionSession.sendKey(char.code)) {
                 is MozcResult.Success -> lastResponse = result.data
                 is MozcResult.Error -> {
-                    session.reset()
+                    suggestionSession.reset()
                     return result
                 }
             }
@@ -135,7 +135,6 @@ class MozcConverterImpl(
         val candidates = if (lastResponse != null && lastResponse.candidates.isNotEmpty()) {
             lastResponse.candidates
         } else if (lastResponse != null && lastResponse.preedit.isNotEmpty()) {
-            // 候補がない場合は preedit を候補として返す
             listOf(Candidate(
                 id = 0,
                 value = lastResponse.preedit,
@@ -144,9 +143,8 @@ class MozcConverterImpl(
         } else {
             emptyList()
         }
-        
-        // セッションをリセットして、メインのセッション状態に戻す
-        session.reset()
+
+        suggestionSession.reset()
         return MozcResult.Success(candidates)
     }
 
